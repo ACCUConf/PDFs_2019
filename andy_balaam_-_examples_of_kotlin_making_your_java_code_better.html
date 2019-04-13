@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="andy_balaam_-_examples_of_kotlin_making_your_java_code_better_files/structpres.css">
+    <script src="andy_balaam_-_examples_of_kotlin_making_your_java_code_better_files/structpres.js"></script>
+    <title>Examples of Kotlin making your Java code better</title>
+</head>
+
+<body style="font-size: 32.5px;">
+
+<div class="slide title" style="height: 624px;">
+
+<div class="cc">
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+<img alt="Creative Commons Licence" src="andy_balaam_-_examples_of_kotlin_making_your_java_code_better_files/88x31.png"></a>
+This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons<br>Attribution-ShareAlike 4.0 International License</a>
+</div>
+
+<h1>Examples of Kotlin making your Java code better</h1>
+
+<address>Andy Balaam<br>
+<a href="http://www.artificialworlds.net/blog">artificialworlds.net/blog</a></address>
+
+</div>
+
+
+<a name="contents"></a>
+<div class="slide contents" style="height: 624px;">
+<div class="slide_body">
+<h1>Contents</h1>
+<ul>
+    <li><a class="go_to_slide" href="#slide_1">Kotlin</a></li>
+    <li><a class="go_to_slide" href="#slide_3">Things that are good</a></li>
+    <li>Examples:
+    <ul>
+    <li><a class="go_to_slide" href="#slide_7">Value objects</a></li>
+    <li><a class="go_to_slide" href="#slide_13">Parameters</a></li>
+    <li><a class="go_to_slide" href="#slide_17">Null safety</a></li>
+    <li><a class="go_to_slide" href="#slide_24">Immutability</a></li>
+    <li><a class="go_to_slide" href="#slide_29">Handling cases</a></li>
+    <li><a class="go_to_slide" href="#slide_33">Constructors</a></li>
+    <li><a class="go_to_slide" href="#slide_36">Streams</a></li>
+    </ul></li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_1"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Kotlin</h1>
+<ul>
+    <li>Very Java-compatible</li>
+    <li>Familiar to Java programmers</li>
+    <li>Less code</li>
+    <li>Better code</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_2"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Kotlin</h1>
+<ul>
+    <li style="opacity: 0.6;">Very Java-compatible</li>
+    <li style="opacity: 0.6;">Familiar to Java programmers</li>
+    <li style="opacity: 0.6;">Less code</li>
+    <li style="color: #aa0000;">Better code</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_3"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Things that are good</h1>
+<ul>
+    <li>Separate values and algorithms</li>
+    <li>Immutability</li>
+    <li>Errors caught at compile time</li>
+    <li>Declarative style</li>
+    <li>Less code</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_4"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Gentle nudges</h1>
+<ul>
+    <li>Easy to do the right thing</li>
+    <li>Bad things are more visible</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_5"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Good patterns</h1>
+<ul>
+    <li>Kotlin codifies patterns that we have learned make good Java</li>
+    <li>... and makes them easy</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_6"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Examples</h1>
+<div style="text-align: center">
+<a title="By MRCZMT [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)], from Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Elliot_John_Gleave_during_radio_interview.jpg">
+    <img alt="Elliot John Gleave during radio interview (cropped)" src="andy_balaam_-_examples_of_kotlin_making_your_java_code_better_files/Elliot_John_Gleave_during_radio_interview_cropped.jpg">
+</a>
+</div>
+<address>Image by MRCZMT [CC BY-SA 3.0
+(https://creativecommons.org/licenses/by-sa/3.0)], from Wikimedia
+Commons</address>
+</div>
+</div>
+
+
+<a name="slide_7"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Value objects</h1>
+<code class="java">public class Thing {
+    private final String <em>name</em>;
+    private final String desc;
+
+    public Thing(String <em>name</em>, String desc) {
+        this.<em>name</em> = <em>name</em>;
+        this.desc = desc;
+    }
+
+    public String get<em>Name</em>() {
+        return <em>name</em>;
+    }
+    <i>// ...</i>
+</code>
+</div>
+</div>
+
+
+<a name="slide_8"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Value objects</h1>
+<code class="java small">public class Thing {
+    <i>// ...</i>
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((desc == null) ? 0 : desc.hashCode());
+        result = prime * result + ((<em>name</em> == null) ? 0 : <em>name</em>.hashCode());
+        return result;
+    }
+    <i>// ...</i>
+</code>
+</div>
+</div>
+
+
+<a name="slide_9"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Value objects</h1>
+<code class="java verysmall">public class Thing {
+    <i>// ...</i>
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Thing other = (Thing) obj;
+        if (desc == null) {
+            if (other.desc != null) {
+                return false;
+            }
+        } else if (!desc.equals(other.desc)) {
+            return false;
+        }
+        if (<em>name</em> == null) {
+            if (other.<em>name</em> != null) {
+                return false;
+            }
+        } else if (!<em>name</em>.equals(other.<em>name</em>)) {
+            return false;
+        }
+        return true;
+    }
+    <i>// ...</i>
+</code>
+</div>
+</div>
+
+
+<a name="slide_10"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Value objects</h1>
+<code class="java">public class Thing {
+    <i>// ...</i>
+    @Override
+    public String toString() {
+        return
+            "Thing(<em>name</em>=" + <em>name</em>
+            + ", desc=" + desc + ")";
+    }
+    <i>// ...</i>
+</code>
+</div>
+</div>
+
+
+<a name="slide_11"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Value objects</h1>
+<ul>
+<li>14 mentions of the word "name"</li>
+<li>Each essentially means "this object has a property called name"</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_12"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Value objects</h1>
+<code class="kotlin"><i>data</i> class ThingK(val <em>name</em>: String, val desc: String)
+</code>
+<ul>
+<li>Same meaning as the Java</li>
+<li>More likely to be correct</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_13"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Parameters</h1>
+<code class="java">public class Message {
+    final String id;
+    final String customer;
+    final String to;
+    final String from;
+    final String body;
+    public <em>Message</em>(String id) {
+        this(id, null, null, null, null);
+    }
+    public Message <em>forCustomer</em>(String customer) {
+        return new Message(<i>...</i>
+    }
+    public Message <em>withTo</em>(String to) {
+    <i>// ...</i>
+</code>
+</div>
+</div>
+
+
+<a name="slide_14"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Parameters</h1>
+<code class="java">Message m = new <em>Message</em>("234")
+    .<em>withTo</em>("012")
+    .<em>forCustomer</em>("Acme");
+</code>
+</div>
+</div>
+
+
+<a name="slide_15"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Parameters</h1>
+<code class="kotlin">data class MessageK(
+    val id: String,
+    val customer: String?<i> = null</i>,
+    val to: String?<i> = null</i>,
+    val from: String?<i> = null</i>,
+    val body: String?<i> = null</i>
+)
+</code>
+</div>
+</div>
+
+
+<a name="slide_16"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Parameters</h1>
+<code class="kotlin">val m = MessageK("234", <em>to=</em>"012", <em>customer=</em>"Acme")
+</code>
+<ul>
+<li>Direct expression of what we meant</li>
+<li>More likely to be correct</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_17"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Null safety</h1>
+<code class="java">public class Scorer {
+    static final Map&lt;String, Integer&gt; <em>wordValues</em> =
+        new HashMap&lt;&gt;();
+    static {
+        <em>wordValues</em>.put("purple", 3);
+        <em>wordValues</em>.put("lavender", 5);
+        <em>wordValues</em>.put("amethyst", 50);
+    }
+    <i>// ...</i>
+</code>
+</div>
+</div>
+
+
+<a name="slide_18"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Null safety</h1>
+<code class="java">public class Scorer {
+    <i>// ...</i>
+    final Map&lt;String, Integer&gt; <i>scores</i> =
+        new HashMap&lt;&gt;();
+    void scoreRequest(String user, String path) {
+        <i>scores</i>.merge(
+            user,
+            <em>wordValues</em>.get(path),
+            Integer::sum
+        );
+    }
+    int total(String user) {
+        return <i>scores</i>.get(user);
+    }
+</code>
+</div>
+</div>
+
+
+<a name="slide_19"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Null safety</h1>
+<code class="java">@Test
+public void Different_users_are_independent() {
+    Scorer s = new Scorer();
+    s.scoreRequest("user1", "purple");
+    s.scoreRequest("user2", "purple");
+    <em>s.scoreRequest("user1", "lavendar"); // CRASH</em>
+    assertThat(s.total("user1"), equalTo(8));
+    assertThat(s.total("user2"), equalTo(3));
+}
+</code>
+</div>
+</div>
+
+
+<a name="slide_20"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Null safety</h1>
+<code class="kotlin">private val <em>wordValues</em> = mapOf(
+    "purple" to 3,
+    "lavender" to 5,
+    "amethyst" to 50
+)
+</code>
+</div>
+</div>
+
+
+<a name="slide_21"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Null safety</h1>
+<code class="kotlin">class ScorerK {
+    val <i>scores</i> = mutableMapOf&lt;String, Int&gt;()
+
+    fun scoreRequest(user: String, path: String) {
+        <i>scores</i>.merge(
+            user,
+            <em>wordValues</em>[path] ?: 0,
+            Integer::sum
+        )
+    }
+    fun total(user: String): Int {
+        return <i>scores</i>[user] ?: 0
+    }
+}
+</code>
+</div>
+</div>
+
+
+<a name="slide_22"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Null safety</h1>
+<code class="kotlin"><span style="opacity: 0.3">class ScorerK {
+    val scores = mutableMapOf&lt;String, Int&gt;()
+
+    fun scoreRequest(user: String, path: String) {
+        scores.merge(
+            user,
+            </span>wordValues[path] <i>?: 0</i><span style="opacity: 0.3">,
+            Integer::sum
+        )
+    }
+    fun total(user: String): Int {
+        return scores[user] ?: 0
+    }
+}</span>
+</code>
+</div>
+</div>
+
+
+<a name="slide_23"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Null safety</h1>
+<ul>
+<li>If this were the only thing in Kotlin, it would be worth it.</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_24"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Immutability</h1>
+<code class="java">public class Emitter {
+    public void handleMessage(<i>// ...</i>
+        long start, end;
+        <i>// ...</i>
+        start = System.currentTimeMillis();
+        String url = urls.get(m.to);
+        if (url == null) {
+            <i>// ...</i>
+        }
+        for(start = 0; start &lt; 3; start++) {
+            <i>// ...</i>
+        }
+        end = System.currentTimeMillis();
+        System.out.println(m.id + ": " + (end-start));
+</code>
+</div>
+</div>
+
+
+<a name="slide_25"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Immutability</h1>
+<code class="java"><span style="opacity: 0.3">public class Emitter {
+    public void handleMessage(// ...
+        </span><i>final</i><span style="opacity: 0.3"> long start, end;
+        // ...
+        start = System.currentTimeMillis();
+        String url = urls.get(m.to);
+        if (url == null) {
+            // ...
+        }</span>
+        <em>for(start = 0; start &lt; 3; start++) { ERROR!</em>
+            <span style="opacity: 0.3">// ...
+        }
+        end = System.currentTimeMillis();
+        System.out.println(m.id + ": " + (end-start));</span>
+</code>
+</div>
+</div>
+
+
+<a name="slide_26"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Immutability</h1>
+<code class="kotlin">class EmitterK {
+    fun handleMessage(<i>// ...</i>
+        val start: Long
+        val end: Long
+        <i>// ...</i>
+        start = System.currentTimeMillis()
+        val url = urls[m.to]
+        if (url == null) {
+            <i>// ...</i>
+        }
+        for(start in 0..3) {
+            <i>// ...</i>
+        }
+        end = System.currentTimeMillis()
+        println(m.id + ": " + (end - start))
+</code>
+</div>
+</div>
+
+
+<a name="slide_27"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Immutability</h1>
+<code class="kotlin"><span style="opacity: 0.3">class EmitterK {
+    fun handleMessage(// ...
+        </span><i>val</i><span style="opacity: 0.3"> start: Long
+        </span><i>val</i><span style="opacity: 0.3"> end: Long
+        // ...
+        start = System.currentTimeMillis()
+        val url = urls[m.to]
+        if (url == null) {
+            // ...
+        }
+        </span><em>for(start in 0..3) { // Warning: name shadowed</em>
+            <span style="opacity: 0.3">// ...
+        }
+        end = System.currentTimeMillis()
+        println(m.id + ": " + (end - start))</span>
+</code>
+</div>
+</div>
+
+
+<a name="slide_28"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Immutability</h1>
+<ul>
+<li>Sane by default</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_29"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Handling cases</h1>
+<code class="java">long reattemptTs = NEVER;
+switch (code) {
+    case 451:
+    case 2020:
+        reattemptTs = now + (ONE_HOUR * tries);
+        <em>break;</em>
+    case 711:
+    case 1522:
+        reattemptTs = now + ONE_MINUTE;
+        <em>break;</em>
+    case 2:
+    default:
+        reattemptTs = NEVER;
+        <em>break;</em>
+}
+return reattemptTs;
+</code>
+</div>
+</div>
+
+
+<a name="slide_30"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Handling cases</h1>
+<code class="kotlin">return when (code) {
+    451, 2020 -&gt; now + (ONE_HOUR * tries)
+    711, 1522 -&gt; now + ONE_MINUTE
+    2 -&gt; NEVER
+    else -&gt; NEVER
+}
+</code>
+<ul>
+<li>Harder to make mistakes</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_31"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Handling cases</h1>
+<code class="kotlin">sealed class Response(val code: Long);
+class Ok : Response(0)
+class FatalError(code: Long) : Response(code)
+class FastError(code: Long) : Response(code)
+class SlowError(code: Long) : Response(code)
+<i>// ...</i>
+return when (response) {
+    is SlowError -&gt; now + (ONE_HOUR * tries)
+    is FastError -&gt; now + ONE_MINUTE
+    is FatalError -&gt; null
+    is Ok -&gt; null
+}
+</code>
+<ul>
+<li>Language supports meaningful constructs</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_32"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Handling cases</h1>
+<code class="kotlin"><em>return</em> when (code) {
+    451, 2020 -&gt; now + (ONE_HOUR * tries)
+    711, 1522 -&gt; now + ONE_MINUTE
+    2 -&gt; NEVER
+    else -&gt; NEVER
+}
+</code>
+<ul>
+<li>Say what you mean (declarative style)</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_33"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Constructors</h1>
+<code class="java">class Requester {
+    <i>Requester</i>(String scheme, String host, HttpClient client) {
+        this.scheme = scheme;
+        this.host = host;
+        this.client = client;
+    }
+    <em>Requester</em>(
+        String user, String pass, String host, boolean useSsl) {
+        this(useSsl, host, new SimpleClient(user, pass));
+    }
+    <em>Requester</em>(boolean useSsl, String host, HttpClient client) {
+        this(useSsl ? "https" : "http", host, client);
+    }
+</code>
+</div>
+</div>
+
+
+<a name="slide_34"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Constructors</h1>
+<code class="kotlin">class <i>RequesterK</i>(
+    val scheme: String,
+    val host: String,
+    val client: HttpClient
+) {
+    <em>constructor</em>(
+        user: String, pass: String, host: String, useSsl: Boolean)
+    : this(useSsl, host, SimpleClient(user, pass))
+
+    <em>constructor</em>(
+        useSsl: Boolean, host: String, client: HttpClient)
+    : this(if (useSsl) "https" else "http", host, client)
+</code>
+</div>
+</div>
+
+
+<a name="slide_35"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Constructors</h1>
+<ul>
+<li>Primary constructor explains the object's fundamental nature</li>
+<li>Primary is often the one needed in tests</li>
+<li>Nudges towards good style</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_36"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Streams</h1>
+<code class="java">static final List&lt;String&gt; hotDrinks =
+    Arrays.asList("tea", "coffee");
+
+public List&lt;String&gt; hotCustomers() {
+    return customers<em>.stream()</em>
+        .<i>filter</i>(
+            cust -&gt; hotDrinks<em>.stream()</em>.<i>anyMatch</i>(
+                drink -&gt; cust.drink.contains(drink)
+            )
+        )
+        .<i>map</i>(Customer::getName)
+        <em>.collect(Collectors.toList())</em>;
+}</code>
+</div>
+</div>
+
+
+<a name="slide_37"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Streams</h1>
+<code class="kotlin">val hotDrinks = listOf("tea", "coffee")
+
+fun hotCustomers(): List&lt;String&gt; {
+    return customers
+        .<i>filter</i> {
+            cust -&gt; hotDrinks.<i>any</i> {
+                cust.drink.contains(it)
+            }
+        }
+        .<i>map</i> {it.name}
+}</code>
+</div>
+</div>
+
+
+<a name="slide_38"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Summary</h1>
+<ul>
+<li>Common patterns are easy to do right, e.g.
+    <ul>
+    <li>Value objects, immutable variables, streams</li>
+    <li>Construction and parameters</li>
+    </ul>
+</li>
+<li>Null handling is:
+    <ul>
+    <li>explicit and mandatory,</li>
+    <li>easy</li>
+    </ul>
+</li>
+<li>Say what you mean, e.g.
+    <ul>
+    <li>Case expressions</li>
+    <li>Declarative style</li>
+    </ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_39"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>Wish list</h1>
+<ul>
+<li>Marking functions pure</li>
+<li>Deep immutability</li>
+</ul>
+</div>
+</div>
+
+
+<a name="slide_40"></a>
+<div class="slide" style="height: 624px;">
+<div class="slide_body">
+<h1>More info</h1>
+<table class="moreinfo">
+    <tbody><tr>
+        <th>Videos</th>
+        <td><a href="http://www.youtube.com/user/ajbalaam">youtube.com/user/ajbalaam</a><br>
+        <a style="font-size:70%;" href="https://peertube.mastodon.host/accounts/andybalaam/">peertube.mastodon.host/accounts/andybalaam</a></td>
+    </tr>
+    <tr>
+        <th>Social</th>
+        <td><a href="http://twitter.com/andybalaam">@andybalaam</a> on Twitter<br>
+        <a href="https://mastodon.social/@andybalaam">@andybalaam@mastodon.social</a></td>
+    </tr>
+    <tr>
+        <th>Web</th>
+        <td><a href="http://www.artificialworlds.net/blog">artificialworlds.net/blog</a><br>
+        <a href="http://www.artificialworlds.net/">artificialworlds.net</a></td>
+    </tr>
+    <tr>
+        <th>Code</th>
+        <td><a href="https://github.com/andybalaam">github.com/andybalaam</a><br>
+        <a href="https://gitlab.com/andybalaam">gitlab.com/andybalaam</a></td>
+    </tr>
+</tbody></table>
+</div>
+</div>
+</body></html>
