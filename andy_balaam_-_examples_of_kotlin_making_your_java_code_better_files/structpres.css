@@ -1,0 +1,284 @@
+
+html
+{
+    padding: 0em;
+    margin: 0em;
+}
+
+body
+{
+    background-color: white;
+    padding: 0em;
+    margin: 0em;
+    font-family: "Source Sans Pro","Trebuchet MS","Lucida Grande","Bitstream Vera Sans","Helvetica Neue",sans-serif;
+    color: #293c4b;
+}
+
+body,button
+{
+    font-size: 1em;
+}
+
+button
+{
+    margin: 0.2em;
+    padding: 0.2em;
+}
+
+input
+{
+    font-size: 0.7em;
+}
+
+h1
+{
+    padding: 0.2em;
+    margin: 0em 0em 0.4em 0em;
+    font-size: 150%;
+    text-align: center;
+    background-color: #60b5cc;
+    color: white;
+}
+
+a
+{
+    color: #60b5cc;
+    text-decoration: inherit;
+}
+
+p
+{
+    margin-bottom: 2%;
+    margin-top: 1%;
+}
+
+ul
+{
+    margin-top: 2%
+}
+
+li
+{
+    padding-left: 0.7%;
+    margin-bottom: 2%;
+}
+
+tt
+{
+    background: #2d2d2d;
+    border-radius: 0.1em;
+    color: #66cccc;
+    white-space: pre;
+    font-size: 70%;
+    overflow: auto;
+    padding: 0.4em;
+}
+
+code
+{
+    background: #2d2d2d;
+    border-radius: 0.2em;
+    color: #66cccc;
+    display: block;
+    white-space: pre;
+    font-size: 70%;
+    overflow: auto;
+    padding: 0.7em;
+}
+
+code.java
+{
+    color: #ccccaa;
+    border: 3px solid #f70;
+}
+
+.small
+{
+    font-size: 50%;
+}
+
+.verysmall
+{
+    font-size: 35%;
+}
+
+code em
+{
+    color: #f33;
+    font-style: normal;
+}
+
+code i
+{
+    color: #0f0;
+    font-style: normal;
+}
+
+li ul li {
+    font-size: 80%;
+}
+
+code.cmdline
+{
+    color: #00ff00;
+}
+
+.prompt
+{
+    color: white;
+}
+
+div.canvas
+{
+    text-align: center;
+    border-radius: 0.2em;
+    background-color: rgb( 200, 200, 200 );
+    margin-bottom: 0.2em;
+}
+
+div.slide
+{
+    border: 0em;
+    margin: 0em;
+    padding: 0em;
+}
+
+div.slide_body
+{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    padding-left: 0em;
+    padding-right: 0em;
+}
+
+div.slide.title h1
+{
+    margin-top: 15%;
+    margin-bottom: 0em;
+    margin-left: 3%;
+    margin-right: 4%;
+    font-size: 175%;
+}
+
+div.cc
+{
+    top: 5%;
+    right: 5%;
+    position: absolute;
+    font-size: 25%;
+    text-align: right;
+}
+
+div.cc img
+{
+    float: right;
+    max-width: 88px;
+    max-height: 31px;
+    border-width: 0px;
+    width: 15%;
+    margin-left: 0.75em;
+    margin-top: 0.25em;
+}
+
+div.slide.title h1.seriestitle
+{
+    font-size: 80%;
+    margin-bottom: 0px;
+}
+
+div.slide.title h1.afterseriestitle
+{
+    margin-top: 0px;
+}
+
+div.slide.title h2
+{
+    margin-top: 0em;
+    font-size: 120%;
+    text-align: center;
+}
+
+
+address
+{
+    font-size: 40%;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+div.slide.title address
+{
+    margin-top: 7%;
+    font-style: normal;
+    text-align: center;
+    font-size: 100%;
+}
+
+div.slide.title address a
+{
+    font-size: 60%;
+}
+
+div.slide.contents a
+{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+div.image
+{
+    text-align: center;
+    margin: 0.2em;
+}
+
+img
+{
+    width: 70%;
+}
+
+input
+{
+    height: 2em;
+    margin: 0em 0em 0em 0.4em;
+    vertical-align: middle;
+}
+
+table.moreinfo
+{
+    border: 0em;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    padding: 1%;
+}
+
+table.moreinfo th
+{
+    font-weight: normal;
+    text-align: right;
+    width: 30%;
+    padding: 1%;
+    padding-right: 5%;
+    vertical-align: middle;
+    font-size: 90%;
+}
+
+table.moreinfo td
+{
+    font-weight: normal;
+    text-align: left;
+    vertical-align: bottom;
+    width: 90%;
+    padding: 1%;
+    font-size: 90%;
+}
+
+table.moreinfo td a
+{
+    text-decoration: none;
+}
+
