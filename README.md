@@ -5,7 +5,7 @@ website](https://conference.accu.org) website associated with the ACCU 2019 conf
 
 After each ACCU conference, PDFs of session material are collected to be associated with the videos on the
 [ACCU Conference channel on YouTube](https://www.youtube.com/channel/UCJhay24LTpO1s4bIZxuIqKw/), and linked
-to from that year's [schedule page](https://conference.accu.org/2018/schedule.html) of the conference website.
+to from that year's [schedule page](https://conference.accu.org/2019/schedule.html) of the conference website.
 
 This repository is separate from the website repository to avoid the problems of that repository getting
 huge and unwieldy due to these "blobs".
